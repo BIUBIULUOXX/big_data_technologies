@@ -40,25 +40,19 @@ fs_new = fs.map(parse_with_age_group)
 fs_40_50 = fs_new.filter(lambda x: '40-50' in x)
 fs_50_60 = fs_new.filter(lambda x: '50-60' in x)
 
-
-----
 # extract occupation in these two age groups
-fs_40_50_s = fs_40_50.map(lambda x: x[3]).countByValue().items()
-fs_50_60_s = fs_50_60.map(lambda x: x[3]).countByValue().items()
+fs_40_50_s = fs_40_50.map(lambda x: x[3])
+fs_50_60_s = fs_50_60.map(lambda x: x[3])
 
 # extract 10 most common occupations for the users in each age group
-fs_40_50_ss = sorted(fs_40_50_s, reverse = True, key  = lambda x : x[1])[:10]
-fs_50_60_ss = sorted(fs_50_60_s, reverse = True, key  = lambda x : x[1])[:10]
-# store data into list 
-fs_40_50_lst = [item[0] for item in fs_40_50_ss]
-fs_50_60_lst = [item[0] for item in fs_50_60_ss]
-
-# convert list into rdd:
-fs_40_50_lst = sc.parallelize(fs_40_50_lst)
-fs_50_60_lst = sc.parallelize(fs_50_60_lst)
+fs_40_50_ss = sc.parallelize(fs_40_50_s.map(lambda x:(x,1)).reduceByKey(add).sortBy(lambda x:x[1],False).take(10))
+fs_50_60_ss = sc.parallelize(fs_50_60_s.map(lambda x:(x,1)).reduceByKey(add).sortBy(lambda x:x[1],False).take(10))
 
 # intersection 40-50,50-60 and 10 occupations in all age groups
-common=(fs_40_50_lst.distinct()).intersection(fs_50_60_lst.distinct())
+print(fs_40_50_ss.collect())
+print(fs_50_60_ss.collect())
+
+common = (fs_40_50_ss.values()).intersection(fs_50_60_ss.values())
 
 # print the output
-print (sorted(common.collect()))
+print (common.collect())

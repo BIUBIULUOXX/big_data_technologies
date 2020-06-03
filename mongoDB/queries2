@@ -1,0 +1,27 @@
+
+#-------------------------------------------------#
+#                     TASK 1                      #
+#-------------------------------------------------#
+//------------------- Task 1.2 -------------------//
+
+db.cl.aggregate([
+{
+    $match: {
+        friendsCount:{$gt: 0}
+    }
+},
+{
+    $project: { 
+    	_id : 0,
+        ratio: { $divide: [ "$followersCount","$friendsCount"] }
+    }
+},
+{
+    $group: {
+      _id: null,
+      average_ratio: {
+        $avg: "$ratio"
+      }
+    }
+}
+]);

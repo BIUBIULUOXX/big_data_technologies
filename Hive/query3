@@ -1,0 +1,37 @@
+# 3) returns all attributes who issues a query that contains the string 'job' maybe inside/ 16 rows
+
+hive> SELECT user, time, query FROM logs WHERE query RLIKE 'job';
+
+
+Query ID = cloudera_20200317142424_1915c305-ba66-4339-a906-45e8510fb761
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1584444952108_0008, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1584444952108_0008/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1584444952108_0008
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 0
+2020-03-17 14:24:56,999 Stage-1 map = 0%,  reduce = 0%
+2020-03-17 14:25:03,229 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.82 sec
+MapReduce Total cumulative CPU time: 1 seconds 820 msec
+Ended Job = job_1584444952108_0008
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1   Cumulative CPU: 1.82 sec   HDFS Read: 208991 HDFS Write: 778 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 820 msec
+OK
+4077443B5801F0C3	970916182623	job openings
+4077443B5801F0C3	970916182752	job openings listings 
+4077443B5801F0C3	970916182823	agricultural job listings
+4077443B5801F0C3	970916182834	agricultural job listings employdogst 
+4077443B5801F0C3	970916182942	job listings
+83607290B8BEAFC6	970916070440	jobs=hong kong
+D5D8220D36969861	970916222708	job interview tips
+D5D8220D36969861	970916224215	job interview tips
+0E10DD8EB5EEB192	970916134219	jobs at the university of minnesota
+567854C718273984	970916021936	part time jobs
+567854C718273984	970916022012	part time jobs
+567854C718273984	970916022043	part time jobs
+567854C718273984	970916022117	part time jobs
+567854C718273984	970916022202	part time jobs
+567854C718273984	970916022313	home jobs
+567854C718273984	970916022444	home jobs
+Time taken: 14.156 seconds, Fetched: 16 row(s)

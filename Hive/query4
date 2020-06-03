@@ -1,0 +1,29 @@
+# 4) returns the number of distinct users who issue a non-empty query between [21:00:00 22:59:59] yyMMddHHmmss  / 69
+
+hive> SELECT count(distinct(user)) FROM logs WHERE query != ' ' AND  from_unixtime(unix_timestamp(time,'yyMMddHHmmss'),'HH:mm:ss') between '21:00:00' and '22:59:59';
+
+
+Query ID = cloudera_20200317144141_dd720442-7394-45b1-bf04-19a43afea171
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1584444952108_0013, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1584444952108_0013/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1584444952108_0013
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2020-03-17 14:41:46,032 Stage-1 map = 0%,  reduce = 0%
+2020-03-17 14:41:52,425 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 2.51 sec
+2020-03-17 14:41:59,700 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 4.21 sec
+MapReduce Total cumulative CPU time: 4 seconds 210 msec
+Ended Job = job_1584444952108_0013
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 4.21 sec   HDFS Read: 214433 HDFS Write: 3 SUCCESS
+Total MapReduce CPU Time Spent: 4 seconds 210 msec
+OK
+69
+Time taken: 23.396 seconds, Fetched: 1 row(s)
